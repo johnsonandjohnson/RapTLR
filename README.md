@@ -2,6 +2,8 @@
 
 (pronunciation: raptor)
 
+Note: this is a first version of RapTLR. Please do note issues for further development. 
+
 ## <font color="blue"> Tutorial </font> 
 
 ### 1. Install the package directly using the code below, replace the capitalized words with your JnJ username and password, 
