@@ -1,0 +1,25 @@
+Package: RapTLR
+Title: Dynamic Text and Automatic Formatting – An R Package to Streamline Time-sensitive Formal Reports
+Version: 0.0.3.9000
+Authors@R: 
+    c( 
+      person(given = "Xiang", family = "Li", email = "xli256@its.jnj.com", role = "aut"),
+      person(given = "Antoine", family = "Stos", email = "astos@its.jnj.com", role = "cre"),
+      person(given = "Lauren", family = "Crow", email = "lcrow@its.jnj.com", role = "aut"),
+      person(given = "Caesar", family = "Li", email = "cli173@its.jnj.com", role = "aut"),
+      person(given = "Yannick", family = "Vandendijck", email = "yvanden2@its.jnj.com", role = "aut")
+      )
+Description: RapTLR enhances report generation using functions to manipulate .docx objects. In R, users can navigate the document, modify or create content, and embed interactive appendices.
+License: use_mit_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Imports: 
+    officer (>= 0.6.6),
+    stringr (>= 1.5.1),
+    uuid (>= 1.2-0),
+    xml2 (>= 1.3.6),
+    purrr (>= 1.0.2)
