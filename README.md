@@ -12,15 +12,9 @@ Note: this is a first version of RapTLR. Please do note issues for further devel
 ## If you don't have it, first install the package remotes, install.packages("remotes")
 
 ## To install from Github
-remotes::install_github("copy_path_to_this_repo(...git)")
+library(remotes)
+remotes::install_github("johnsonandjohnson/RapTLR")
 
-## For comapany BitBucket internal users. If this doesn't work, use install_git() with your username and password as credentials like below.
-remotes::install_git("copy_path_to_this_repo(.../raptlr.git)")
-## For security reasons, the exact internal path is not displayed starting the 06/27/2025 commit.
-
-## Using credentials instead
-gitcred <- git2r::cred_user_pass(username="YOUR_USERNAME",password="PASSWORD/TOKEN(PAT)")
-remotes::install_git("copy_path_to_this_repo(.../raptlr.git)", credentials = gitcred)
 ```
 
 ### 2. To use the internal examples, use export_examples() to automatically copy-paste to your local machine or SPACE.
