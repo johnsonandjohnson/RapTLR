@@ -1,12 +1,3 @@
-#' @import officer
-#' @import xml2
-#' @import stringr
-#' @import uuid
-#' @import dplyr
-#' @import rlang
-
-
-
 #' Create the appendix of a docx file - combine link creation and add TLF tables
 #'
 #' This function takes an empty (or headed) docx file, links your output TLF files, and adds them to the docx. Please note that this function will automatically create a new folder "new_linked" within your path_TLFs for processing intermediate TLF files.
@@ -18,24 +9,32 @@
 #' @param return_to_file Optionnal: Path and name of the docx document with the appendice. If NULL then the new docx document will be saved at the working directory as appendix_processed.docx 
 #' @returns NULL, output a docx to the destination folder.
 #' @examples
-#' path_TLFs = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLF_outputs"
-#' path_docx = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/"
-#' path_result = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLR_shell_processed.docx"
-#' # By default, no sections are specified. All tables are automatically grouped into a single section called "Outputs" in the appendice.
+#' path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
+#' path_docx <- system.file("extdata", "TLR_shell.docx", package = "RapTLR")
+#' path_result <- file.path(getwd( ), "docx_with_appendice")
+#' # By default, no sections are specified. All tables are automatically grouped into a single section called "Outputs" in the appendice and saved in the current working directory as appendix_processed.docx.
 #' run_apdx(path_TLFs = path_TLFs,
-#'           docx_object = file.path(path_docx, "TLR_shell.docx"))
+#'          docx_object = file.path(path_docx, "TLR_shell.docx"))
 #'
-#' # An excel file can be read to define the structure of the appendice with the corresponding outputs.
+#' # The path and name of the new docx object can be modifed with return_to_file argument.
 #' run_apdx(path_TLFs = path_TLFs,
-#'          docx_object = file.path(path_docx, "TLR_shell.docx"),
-#'          keyword = "LISTOFAPPENDICES",
+#'          docx_object = path_docx,
 #'          return_to_file = path_result)
 #'
-#' # A CSV file can also be used to define the structure of the appendices.
+#' # A CSV file can be used to define the structure of the appendices.
+#' TLF_list_csv <- system.file("extdata", "TLF_list.csv", package = "RapTLR")
+#' 
 #' run_apdx(path_TLFs = path_TLFs,
-#'          docx_object = file.path(path_docx, "TLR_shell.docx"),
-#'          keyword = "LISTOFAPPENDICES",
-#'          sections_structure = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLF_list.csv",
+#'          docx_object = path_docx,
+#'          sections_structure = TLF_list_csv,
+#'          return_to_file = path_result)
+#' 
+#' # Or an excel file 
+#' TLF_list_xlsx <- system.file("extdata", "TLF_list.xlsx", package = "RapTLR")
+#' 
+#' run_apdx(path_TLFs = path_TLFs,
+#'          docx_object = path_docx,
+#'          sections_structure = TLF_list_xlsx,
 #'          return_to_file = path_result)
 #'
 #' # Or a list following the below format :
@@ -43,7 +42,7 @@
 #'                     Overall = "tsidem03",
 #'                     Safety = c("tsfae10", "lsfae03"))
 #' run_apdx(path_TLFs = path_TLFs,
-#'          docx_object = file.path(path_docx, "TLR_shell.docx"),
+#'          docx_object = path_docx,
 #'          sections_structure = output_list)
 #'
 #'
@@ -91,8 +90,6 @@ run_apdx <- function(path_TLFs,
     if (!grepl("\\.docx$", return_to_file, ignore.case = TRUE))
       return_to_file <- paste0(return_to_file, ".docx")
   }
-
-  print( return_to_file )
 
 
   ##################################### Read in Sections Structure #####################################
