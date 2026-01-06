@@ -10,3 +10,6 @@ R/dev
 **/DOCX_processed.docx
 **/TLF_list_1.xlsx
 **/TLF_list_2.xlsx
+*.docx
+**/TLF_list_1.csv
+demo.R
