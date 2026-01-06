@@ -62,11 +62,6 @@ addTLF2TLR <- function(imported_docx_object = imported_docx_object,
       }
 
       path_i <- file.path( path_docx_bk, paste0( "LK", sub_list[ i ], ".docx" ) )
-      if(!file.exists(path_i)) {
-        warning(paste0("Your output file, ", y,
-                       ", table title is not formatted from standard rtf file from programmer's output. Adding withtout a bookmark instead. This may be due to the fact that you are not using docx converted from programmers' rtf outputs."))
-        path_i <- file.path( path_TLFs, paste0( sub_list[ i ], ".docx" ) )
-      }
 
       tb1=officer::read_docx( path_i )
       dim1=tb1$sect_dim

@@ -102,7 +102,7 @@ fct_bsl_stats <- function( arg_dataset,
           dplyr::mutate( ., dplyr::across( dplyr::all_of( arg_trt_inc ), ~ paste( stringr::str_to_title( dplyr::cur_column( ) ), "the", arg_var1, "was", .x ) ) ) %>%
             tidyr::unite( "TRT", dplyr::all_of( arg_trt_inc ), remove = T, sep = ", for " )
           
-        } else { . } } %>% 
+        } else { dplyr::select(., dplyr::everything( ) ) } } %>% 
         
         dplyr::mutate( ., 
                 VAR = rlang::as_name( rlang::enquo( arg_var_num ) ), 
@@ -115,4 +115,4 @@ fct_bsl_stats <- function( arg_dataset,
         stringr::str_replace( replacement = paste0( "), ", "and" ), pattern = "(\\),)(?!(.|\n)*\\),)" ) %>% 
         stringr::str_squish( )
   
-        }
+}
