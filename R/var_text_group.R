@@ -197,27 +197,3 @@ var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL,
           sep = " " ) %>%
   str_squish()
 }
-
-var_text_group(arg_dataset = tlr_adsl, arg_var_rest = )
-var_text_group(
-  arg_dataset = tlr_adsl,
-  arg_var_rest = DCREASCD,
-  arg_group_var = TRT01P, 
-  arg_order = FALSE
-)
-
-var_text_group(
-  arg_dataset = tlr_adsl,
-  arg_var_rest = DCREASCD,
-  arg_group_var = TRT01P, 
-  arg_group_vals = c( "Xanomeline High Dose", "Xanomeline Low Dose" )
-)
-
-var_text_group(
-  arg_dataset = tlr_adsl,
-  arg_var_rest = DCREASCD,
-  arg_group_var = TRT01P, 
-  arg_group_vals = c( "Xanomeline High Dose", "Xanomeline Low Dose", "Placebo" ), 
-  arg_nbr_obs = 3 
-)
-
