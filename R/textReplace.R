@@ -78,7 +78,7 @@ textReplace <- function(doc_object,
 
   
   doc_object_mod <- officer::cursor_reach(doc_object, keyword)
-  doc_object_mod <- officer::body_add_par(doc_object_mod, replacement)
+  doc_object_mod <- crosstable::body_add_normal(doc_object_mod, replacement)
   doc_object_mod <- officer::cursor_reach(doc_object_mod, keyword)
   doc_object_mod <- officer::body_remove(doc_object_mod)
   
