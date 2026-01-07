@@ -13,7 +13,7 @@ Description: RapTLR enhances report generation using functions to manipulate .do
 License: use_mit_license()
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5)
 LazyData: true
@@ -22,4 +22,6 @@ Imports:
     stringr (>= 1.5.1),
     uuid (>= 1.2-0),
     xml2 (>= 1.3.6),
-    purrr (>= 1.0.2)
+    purrr (>= 1.0.2),
+    dplyr (>= 1.1.4),
+    rlang (>= 1.1.6)
