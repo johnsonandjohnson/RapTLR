@@ -14,7 +14,7 @@
 #' @param arg_lbl Format for displaying counts: "nbr" (count only), "pct" (percentage only), or "nbr-pct" (both)
 #'
 #' @return A character string containing the formatted description
-#'
+#' 
 #' @examples
 #' # Basic usage - show race distribution with default formatting
 #' fct_var_text(arg_dataset = tlr_adsl, arg_var_rest = RACE)
@@ -62,29 +62,29 @@ fct_var_text <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, a
   
   arg_lbl <- match.arg(arg_lbl)
 
-  cond_fl <- enquo( arg_fl_rest )
+  cond_fl <- rlang::enquo( arg_fl_rest )
 
   lbl_expr <- switch(
     arg_lbl,
-    "nbr" = expr( as.character( paste0( "n=", n ) ) ),
-    "pct" = expr( paste0( pct, "%" ) ),
-    "nbr-pct" = expr( paste0( "n=", n, "; ", pct, "%" ) ),
-    expr( as.character( n ) )
+    "nbr" = rlang::expr( as.character( paste0( "n=", n ) ) ),
+    "pct" = rlang::expr( paste0( pct, "%" ) ),
+    "nbr-pct" = rlang::expr( paste0( "n=", n, "; ", pct, "%" ) ),
+    rlang::expr( as.character( n ) )
   )
   
   paste( arg_text_desc, 
          arg_dataset %>% 
-           filter( if( !quo_is_null( cond_fl ) ) {{ cond_fl }} else TRUE ) %>% 
-           select( {{ arg_var_rest }} ) %>%
-           count( {{ arg_var_rest }}, sort = arg_order ) %>% 
-           mutate( pct = round( n / sum( n ) * 100, 1 ),  
+           dplyr::filter( if( !rlang::quo_is_null( cond_fl ) ) {{ cond_fl }} else TRUE ) %>% 
+           dplyr::select( {{ arg_var_rest }} ) %>%
+           dplyr::count( {{ arg_var_rest }}, sort = arg_order ) %>% 
+           dplyr::mutate( pct = round( n / sum( n ) * 100, 1 ),  
                    lbl = paste0( arg_cvt_stg( {{ arg_var_rest }} ), " (", !!lbl_expr, ")"  )) %>% 
-           slice_head( n = arg_nbr_obs ) %>% 
-           pull( lbl ) %>% 
+           dplyr::slice_head( n = arg_nbr_obs ) %>% 
+           dplyr::pull( lbl ) %>% 
            paste( collapse = ", ") %>% 
-           str_replace( replacement = " and", pattern = ",(?!.*,)" ), 
+           stringr::str_replace( replacement = " and", pattern = ",(?!.*,)" ), 
          sep = " " ) %>% 
-    str_squish( )
+    stringr::str_squish( )
 }
 
 
