@@ -38,9 +38,6 @@
 #'   \item Formatted narrative text combining these statistics
 #' }
 #'
-#' The output format is: "[overall_pct]% [variable_label] ([pct1]% on [group1], [pct2]% on
-#' [group2] and [pct3]% on [group3])"
-#'
 #' @examples
 #' # Example 1: Basic usage - summarize discontinuation reasons by treatment
 #' # Shows all discontinuation reasons ordered by frequency
