@@ -55,6 +55,9 @@
 #'   arg_lbl = "nbr-pct"
 #' )
 #'
+#' @export
+#' 
+
 fct_var_text <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_order = FALSE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_lbl = c( "pct", "nbr", "nbr-pct" ) ){
   
   arg_lbl <- match.arg(arg_lbl)
