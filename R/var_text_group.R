@@ -104,16 +104,8 @@
 #'   arg_nbr_obs = 2
 #' )
 #'
-#' # Example 8: Filter dataset before analysis
-#' # Analyzes only subjects who completed the study
-#' var_text_group(
-#'   arg_dataset = tlr_adsl,
-#'   arg_fl_rest = EOSSTT == "COMPLETED",
-#'   arg_var_rest = DCREASCD,
-#'   arg_group_var = TRT01P
-#' )
 #'
-#' # Example 9: Combine multiple parameters for precise control
+#' # Example 8: Combine multiple parameters for precise control
 #' # Filtered data, custom labels, limited output, with descriptive text
 #' var_text_group(
 #'   arg_text_desc = "Among safety population patients,",
@@ -127,7 +119,7 @@
 #'   arg_nbr_obs = 5
 #' )
 #'
-#' # Example 10: Analyze adverse events by treatment group
+#' # Example 9: Analyze adverse events by treatment group
 #' # Useful for safety summaries in TLR documents
 #' var_text_group(
 #'   arg_text_desc = "The most frequently reported adverse events were:",
@@ -141,29 +133,30 @@
 #' @seealso
 #' \code{\link{textReplace}} for inserting generated text into Word documents
 #' \code{\link{run_apdx}} for adding appendices to TLR documents
-#'
+#' 
+#' @importFrom stringr str_replace str_squish
 #' @export
 var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf ) {
   
-  cond_fl <- enquo(arg_fl_rest)
+  cond_fl <- rlang::enquo(arg_fl_rest)
 
   data_fl <- arg_dataset %>%
-    filter( if( !quo_is_null( cond_fl )) {{ cond_fl }} else TRUE ) %>%
-    select({{ arg_var_rest }}, {{ arg_group_var }}) %>%
-    mutate( .group_chr = as.character({{ arg_group_var }}))
+    dplyr::filter( if( !rlang::quo_is_null( cond_fl )) {{ cond_fl }} else TRUE ) %>%
+    dplyr::select({{ arg_var_rest }}, {{ arg_group_var }}) %>%
+    dplyr::mutate( .group_chr = as.character({{ arg_group_var }}))
 
-  if( !is.null( arg_group_vals )) data_fl <- data_fl %>% filter( .group_chr %in% arg_group_vals )
+  if( !is.null( arg_group_vals )) data_fl <- data_fl %>% dplyr::filter( .group_chr %in% arg_group_vals )
 
   total_n <- nrow( data_fl )
 
   tab <- data_fl %>%
-    count( {{ arg_var_rest }}, .group_chr, name = "n" ) %>%
-    group_by( {{ arg_var_rest }}) %>%
-    mutate( overall_n = sum( n ), 
+    dplyr::count( {{ arg_var_rest }}, .group_chr, name = "n" ) %>%
+    dplyr::group_by( {{ arg_var_rest }}) %>%
+    dplyr::mutate( overall_n = sum( n ), 
             overall_pct = round( overall_n[ 1 ] / total_n * 100, 1 ), 
             pct = round( n / overall_n[ 1 ] * 100, 1 )
     ) %>%
-    ungroup( )
+    dplyr::ungroup( )
 
 
   if( is.null( arg_group_vals ) ) arg_group_vals <- unique( tab$.group_chr )
@@ -171,26 +164,26 @@ var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL,
   lut <- setNames( arg_group_lbl, arg_group_vals )
 
   tab <- tab %>%
-    mutate( .group_chr = factor( .group_chr, levels = arg_group_vals ),
+    dplyr::mutate( .group_chr = factor( .group_chr, levels = arg_group_vals ),
             .group_lbl = lut[ as.character( .group_chr )] )
 
   overall_tab <- tab %>%
-    arrange( {{ arg_var_rest }}, .group_chr ) %>% 
-    group_by( {{ arg_var_rest }} ) %>%
-    summarise( overall_n = first( overall_n ),
-               overall_pct = first( overall_pct ),
-               var_lbl = arg_cvt_stg( first( {{ arg_var_rest }} )),
+    dplyr::arrange( {{ arg_var_rest }}, .group_chr ) %>% 
+    dplyr::group_by( {{ arg_var_rest }} ) %>%
+    dplyr::summarise( overall_n = dplyr::first( overall_n ),
+               overall_pct = dplyr::first( overall_pct ),
+               var_lbl = arg_cvt_stg( dplyr::first( {{ arg_var_rest }} )),
                group_txt = { gp <- paste0( pct, "% on ", .group_lbl ) 
                              txt <- paste( gp, collapse = ", ") 
-                             str_replace( txt, ",(?!.*,)", " and" ) }, 
+                             stringr::str_replace( txt, ",(?!.*,)", " and" ) }, 
               .groups = "drop" ) %>%
-    arrange( if( arg_order ) desc( overall_n ) else TRUE )  %>%
-    slice_head(n = arg_nbr_obs) %>%
-    mutate( lbl = paste0( overall_pct, "% ", var_lbl, " (", group_txt, ")") )
+    dplyr::arrange( if( arg_order ) dplyr::desc( overall_n ) else TRUE )  %>%
+    dplyr::slice_head(n = arg_nbr_obs) %>%
+    dplyr::mutate( lbl = paste0( overall_pct, "% ", var_lbl, " (", group_txt, ")") )
 
   paste( arg_text_desc, overall_tab$lbl %>% 
                           paste(collapse = ", " ) %>%
-                          str_replace(",(?!.*,)", " and"),
+                          stringr::str_replace(",(?!.*,)", " and"),
           sep = " " ) %>%
-  str_squish()
+  stringr::str_squish()
 }

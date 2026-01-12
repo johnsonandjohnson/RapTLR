@@ -6,6 +6,8 @@
 #' @param path_TLFs Path of the TLFs
 #' @param output_structure_list List of the outputs to be imported to the TLR
 #' @noRd
+#' @importFrom rlang expr
+#' @importFrom rlang eval_tidy
 
 
 addTLF2TLR <- function(imported_docx_object = imported_docx_object,

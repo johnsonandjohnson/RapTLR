@@ -31,11 +31,11 @@ This function takes an empty (or headed) docx file, links your output TLF files,
 }
 \examples{
 path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
-path_docx <- system.file("extdata", "TLR_shell.docx", package = "RapTLR")
-path_result <- file.path(getwd( ), "docx_with_appendice")
+path_docx <- system.file("extdata", "TLR_Shell.docx", package = "RapTLR")
+path_result <- "docx_with_appendice"
 # By default, no sections are specified. All tables are automatically grouped into a single section called "Outputs" in the appendice and saved in the current working directory as appendix_processed.docx.
 run_apdx(path_TLFs = path_TLFs,
-         docx_object = file.path(path_docx, "TLR_shell.docx"))
+         docx_object = path_docx)
 
 # The path and name of the new docx object can be modifed with return_to_file argument.
 run_apdx(path_TLFs = path_TLFs,

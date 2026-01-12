@@ -9,14 +9,14 @@
 #' @returns officer object or writing to files instead
 #' @examples
 #' # You can provide docx object
-#' docx_path <- system.file("extdata", "TLR_shell.docx", package = "RapTLR")
+#' docx_path <- system.file("extdata", "Keywords_replace.docx", package = "RapTLR")
 #' 
 #' newdocx <- textReplace(doc_object = docx_path,
 #'                        keyword = "TTsubjectTT",
 #'                        replacement = "This is new text")
 #' 
 #' # You can also provide docx object in the environment 
-#' docx_path <- system.file("extdata", "TLR_shell.docx", package = "RapTLR")
+#' docx_path <- system.file("extdata", "Keywords_replace.docx", package = "RapTLR")
 #' docx_imported <- officer::read_docx(docx_path)
 #' 
 #' newdocx <- textReplace(doc_object = docx_imported,
@@ -24,12 +24,14 @@
 #'                        replacement = "Some new text")
 #' 
 #' # You can provide the name of the new document
+#' docx_imported <- officer::read_docx(docx_path)
 #' textReplace(doc_object = docx_imported,
 #'             keyword = "TTsomethingTT",
 #'             replacement = "New texts",
 #'             return_to_file = file.path( getwd(), "new_docx.docx" ))
 #' 
 #' # You can use R's built-in or dplyr's function chains to chain your functions
+#' docx_imported <- officer::read_docx(docx_path)
 #' textReplace(doc_object = docx_imported,
 #'             keyword = "TTsubjectTT",
 #'             replacement = "This is new text")  |>
@@ -42,6 +44,7 @@
 #'             return_to_file = "TLR_shell_replaced_texts.docx")
 #'
 #' # See help(run_apdx) or Github landing page for additional details..
+#' @importFrom crosstable body_add_normal
 #' @export
 
 

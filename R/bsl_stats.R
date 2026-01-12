@@ -21,6 +21,10 @@
 #' @return A character string containing a formatted summary of baseline statistics,
 #'   including the specified central tendency and dispersion measures, suitable for
 #'   inclusion in clinical study reports.
+#' 
+#' @importFrom magrittr %>%
+#' @importFrom stringr str_to_upper
+#' @importFrom rlang enquo
 #'
 #' @examples
 #' data(tlr_adsl)

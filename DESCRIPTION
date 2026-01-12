@@ -25,4 +25,6 @@ Imports:
     purrr (>= 1.0.2),
     dplyr (>= 1.1.4),
     rlang (>= 1.1.6),
-    crosstable (>= 0.8.2)
+    crosstable (>= 0.8.2),
+    magrittr (>= 2.0.4),
+    readxl (>= 1.4.5)

@@ -65,9 +65,6 @@ The function calculates:
 \item Within-category distribution across groups
 \item Formatted narrative text combining these statistics
 }
-
-The output format is: "\link{overall_pct}\% \link{variable_label} (\link{pct1}\% on \link{group1}, \link{pct2}\% on
-\link{group2} and \link{pct3}\% on \link{group3})"
 }
 \examples{
 # Example 1: Basic usage - summarize discontinuation reasons by treatment
@@ -135,16 +132,8 @@ var_text_group(
   arg_nbr_obs = 2
 )
 
-# Example 8: Filter dataset before analysis
-# Analyzes only subjects who completed the study
-var_text_group(
-  arg_dataset = tlr_adsl,
-  arg_fl_rest = EOSSTT == "COMPLETED",
-  arg_var_rest = DCREASCD,
-  arg_group_var = TRT01P
-)
 
-# Example 9: Combine multiple parameters for precise control
+# Example 8: Combine multiple parameters for precise control
 # Filtered data, custom labels, limited output, with descriptive text
 var_text_group(
   arg_text_desc = "Among safety population patients,",
@@ -158,7 +147,7 @@ var_text_group(
   arg_nbr_obs = 5
 )
 
-# Example 10: Analyze adverse events by treatment group
+# Example 9: Analyze adverse events by treatment group
 # Useful for safety summaries in TLR documents
 var_text_group(
   arg_text_desc = "The most frequently reported adverse events were:",

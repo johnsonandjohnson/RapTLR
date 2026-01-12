@@ -47,7 +47,7 @@ fct_var_text(arg_dataset = tlr_adsl, arg_var_rest = RACE)
 fct_var_text(arg_text_desc = "Patients were", arg_dataset = tlr_adsl, arg_var_rest = RACE)
 
 # Convert labels to sentence case
-fct_var_text(arg_dataset = tlr_adsl, arg_var_rest = RACE, arg_cvt_stg = str_to_sentence)
+fct_var_text(arg_dataset = tlr_adsl, arg_var_rest = RACE, arg_cvt_stg = stringr::str_to_sentence)
 
 # Sort by frequency (most common first)
 fct_var_text(arg_dataset = tlr_adsl, arg_var_rest = RACE, arg_order = TRUE)
@@ -75,7 +75,7 @@ fct_var_text(
   arg_var_rest = DCREASCD,
   arg_order = TRUE,
   arg_nbr_obs = 3,
-  arg_cvt_stg = str_to_lower,
+  arg_cvt_stg = stringr::str_to_lower,
   arg_lbl = "nbr-pct"
 )
 
