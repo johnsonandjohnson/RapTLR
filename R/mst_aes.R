@@ -26,8 +26,6 @@
 #'   clinical study reports.
 #'
 #' @examples
-#' data(tlr_adae)
-#' data(tlr_adsl)
 #'
 #' # Find most common AEs (>=15%) in Xanomeline High Dose group
 #' fct_mst_aes(

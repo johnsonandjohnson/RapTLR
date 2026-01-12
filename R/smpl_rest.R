@@ -20,8 +20,6 @@
 #'   Returns NA_character_ if the filtered dataset has zero rows.
 #' 
 #' @examples
-#' # Load adsl data from this package
-#' data("tlr_adsl", package = "RapTLR")
 #' 
 #' # Without filtering, return the number of rows
 #' fct_smpl_rest(arg_dataset = tlr_adsl)

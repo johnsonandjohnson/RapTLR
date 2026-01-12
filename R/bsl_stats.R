@@ -27,7 +27,6 @@
 #' @importFrom rlang enquo
 #'
 #' @examples
-#' data(tlr_adsl)
 #'
 #' # Calculate mean age with SD for all subjects
 #' fct_bsl_stats(
