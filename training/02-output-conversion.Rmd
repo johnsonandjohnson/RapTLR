@@ -1,0 +1,63 @@
+# Output Conversion with 3C Helper {#output-conversion}
+
+## Understanding TLF Formats
+
+RapTLR's `run_apdx()` function inserts TLFs into your Word document. To work properly, your outputs must be in **PDF format**.
+
+## What is 3C Helper?
+
+3C Helper is a companion tool that converts various output formats to PDF. Common scenarios:
+
+- RTF files from SAS to PDF
+- HTML files from R to PDF  
+- Text listings to PDF
+- Multiple formats in batch
+
+## File Naming Conventions
+
+**Critical for RapTLR:** Use consistent, meaningful names:
+
+- Good: `t_demographics_01.pdf`, `l_adverse_events_01.pdf`
+- Bad: `output1.pdf`, `table.pdf`, `final_v2.pdf`
+
+### Recommended Naming Pattern
+
+```
+[type]_[description]_[number].pdf
+
+Where:
+- type: t (table), l (listing), f (figure)
+- description: brief content description
+- number: sequential identifier
+```
+
+## Organizing Your TLF Folder
+
+Create a clear folder structure:
+
+```
+TLR_project/
+├── TLF_outputs/
+│   ├── t_demographics_01.pdf
+│   ├── t_efficacy_02.pdf
+│   └── l_adverse_events_01.pdf
+├── TLR_shell/
+│   └── TLR_shell.docx
+└── scripts/
+    └── generate_tlr.R
+```
+
+## Quality Checks Before Processing
+
+Before using `run_apdx()`, verify:
+
+1. **All files are PDFs**
+   ```{r eval=FALSE}
+   list.files("TLF_outputs/", pattern = "\\.pdf$")
+   ```
+
+2. **Files open correctly**
+3. **Consistent naming**
+4. **Complete set**
+
+You're ready to move to appendix creation!

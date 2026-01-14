@@ -1,0 +1,76 @@
+---
+title: "RapTLR Training Guide"
+subtitle: "Rapid Top-Line Report Generation with R"
+author: "RapTLR Development Team"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+description: "Complete training material for the RapTLR package"
+---
+
+# Introduction {#intro}
+
+## What is RapTLR?
+
+RapTLR (pronounced "raptor") is an R package designed to automate and streamline the creation of Top-Line Reports (TLRs) in clinical trials. It eliminates manual, error-prone tasks by:
+
+- **Automatically appending TLFs** (Tables, Listings, Figures) to Word documents with hyperlinks
+- **Dynamically replacing placeholder text** with calculated values from your data
+- **Creating formatted text descriptions** of variable distributions
+
+## Why Use RapTLR?
+
+Traditional TLR creation involves:
+
+- Manual copy-pasting of outputs into Word documents
+- Manually updating numbers when data changes
+- Risk of transcription errors
+- Time-consuming formatting
+
+**RapTLR solves these problems** by connecting your R analysis directly to your Word document, ensuring accuracy and saving hours of work.
+
+## Installation
+
+```{r eval=FALSE}
+# Install remotes if needed
+install.packages("remotes")
+
+# Install RapTLR from GitHub
+library(remotes)
+remotes::install_github("johnsonandjohnson/RapTLR")
+```
+
+## Getting Started with Examples
+
+RapTLR includes built-in examples to help you learn quickly:
+
+```{r eval=FALSE}
+library(RapTLR)
+
+# Export example files to your working directory
+export_examples(path_workingFolder = "C:/Documents/TLR_folder/")
+```
+
+This creates two folders:
+- `TLF_outputs/` - Contains dummy TLF files (PDFs)
+- `TLR_shell/` - Contains a template Word document
+
+## Typical Workflow
+
+```{r eval=FALSE}
+# 1. Load your data and create TLFs
+# 2. Prepare a Word shell document with placeholders
+# 3. Use run_apdx() to add TLFs as appendices
+# 4. Use textReplace() to update placeholder text
+# 5. Generate final TLR document
+```
+
+## Package Dependencies
+
+RapTLR relies on the `officer` package for Word document manipulation. Key concepts:
+
+- Documents are R objects that can be modified
+- Changes can be chained together
+- Final output is written to a file
+
+Let's dive into each component!
