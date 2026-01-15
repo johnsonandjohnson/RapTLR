@@ -1,0 +1,291 @@
+# Creating Text with R {#creating-text}
+
+## The fct_var_text() Function
+
+RapTLR includes `fct_var_text()` to automatically create formatted text descriptions of categorical variable distributions.
+
+## What Does It Do?
+
+Converts this:
+
+```{r eval=FALSE}
+table(adsl$RACE)
+# WHITE  BLACK  ASIAN  OTHER
+#   150     80     50     20
+```
+
+Into this:
+
+```
+"White (n=150; 50%), Black (n=80; 26.7%), Asian (n=50; 16.7%) and Other (n=20; 6.7%)"
+```
+
+## Basic Usage
+
+```{r eval=FALSE}
+library(RapTLR)
+
+# Simple distribution
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE
+)
+```
+
+Output: `"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"`
+
+## Function Parameters
+
+**arg_text_desc** - Prefix text (default: "")
+
+**arg_dataset** - Data frame containing the variable
+
+**arg_fl_rest** - Optional filtering condition
+
+**arg_var_rest** - Unquoted variable name to analyze
+
+**arg_order** - Sort by frequency? (default: FALSE)
+
+**arg_cvt_stg** - Function to apply to labels (default: identity)
+
+**arg_nbr_obs** - Number of levels to include (default: Inf)
+
+**arg_lbl** - Format: "nbr", "pct", or "nbr-pct"
+
+## Label Formats
+
+### Show Counts Only
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_lbl = "nbr"
+)
+```
+
+Output: `"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"`
+
+### Show Percentages Only
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_lbl = "pct"
+)
+```
+
+Output: `"WHITE (50%), BLACK (26.7%), ASIAN (16.7%) and OTHER (6.7%)"`
+
+### Show Both
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_lbl = "nbr-pct"
+)
+```
+
+Output: `"WHITE (n=150; 50%), BLACK (n=80; 26.7%) and ASIAN (n=50; 16.7%)"`
+
+## Advanced Features
+
+### Add Descriptive Prefix
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_text_desc = "Patients were",
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE
+)
+```
+
+Output: `"Patients were WHITE (n=150), BLACK (n=80) and ASIAN (n=50)"`
+
+### Sort by Frequency
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_order = TRUE
+)
+```
+
+Output shows most common first.
+
+### Limit to Top N
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_order = TRUE,
+  arg_nbr_obs = 3
+)
+```
+
+Shows only top 3 most frequent categories.
+
+### Convert Label Case
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_var_rest = RACE,
+  arg_cvt_stg = stringr::str_to_sentence
+)
+```
+
+Output: `"White (n=150), Black (n=80) and Asian (n=50)"`
+
+### Filter Data First
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset = tlr_adsl,
+  arg_fl_rest = SAFFL == "Y",
+  arg_var_rest = RACE
+)
+```
+
+Analyzes only safety population.
+
+## Practical Examples
+
+### Example 1: Demographics Description
+
+```{r eval=FALSE}
+race_text <- fct_var_text(
+  arg_text_desc = "The study population was",
+  arg_dataset = adsl,
+  arg_var_rest = RACE,
+  arg_cvt_stg = stringr::str_to_lower,
+  arg_lbl = "pct"
+)
+
+textReplace(
+  doc_object = doc,
+  keyword = "TTraceTT",
+  replacement = race_text
+)
+```
+
+### Example 2: Discontinuation Reasons
+
+```{r eval=FALSE}
+disc_text <- fct_var_text(
+  arg_text_desc = "The most common reasons for discontinuation were:",
+  arg_dataset = adsl,
+  arg_fl_rest = DISCONFL == "Y",
+  arg_var_rest = DCREASCD,
+  arg_order = TRUE,
+  arg_nbr_obs = 3,
+  arg_cvt_stg = stringr::str_to_lower,
+  arg_lbl = "nbr-pct"
+)
+
+textReplace(
+  doc_object = doc,
+  keyword = "TTdiscontinuationTT",
+  replacement = disc_text
+)
+```
+
+### Example 3: Adverse Event Summary
+
+```{r eval=FALSE}
+ae_text <- fct_var_text(
+  arg_text_desc = "The most frequent adverse events were",
+  arg_dataset = adae,
+  arg_var_rest = AEDECOD,
+  arg_order = TRUE,
+  arg_nbr_obs = 5,
+  arg_lbl = "nbr-pct"
+)
+```
+
+## Complete Workflow
+
+```{r eval=FALSE}
+library(RapTLR)
+library(haven)
+library(stringr)
+
+adsl <- read_sas("adam/adsl.sas7bdat")
+
+# Create multiple text descriptions
+race_text <- fct_var_text(
+  arg_text_desc = "Patients were",
+  arg_dataset = adsl,
+  arg_var_rest = RACE,
+  arg_cvt_stg = str_to_lower,
+  arg_lbl = "pct"
+)
+
+country_text <- fct_var_text(
+  arg_text_desc = "The top enrollment countries were",
+  arg_dataset = adsl,
+  arg_var_rest = COUNTRY,
+  arg_order = TRUE,
+  arg_nbr_obs = 5,
+  arg_lbl = "nbr"
+)
+
+# Replace in document
+textReplace(
+  doc_object = "TLR_shell.docx",
+  keyword = "TTraceTT",
+  replacement = race_text
+) |>
+textReplace(
+  keyword = "TTcountryTT",
+  replacement = country_text,
+  return_to_file = "TLR_final.docx"
+)
+```
+
+## Integration with Full TLR Workflow
+
+```{r eval=FALSE}
+library(RapTLR)
+
+# Step 1: Add appendices
+doc <- run_apdx(
+  path_TLFs = "TLF_outputs/",
+  docx_object = "TLR_shell.docx",
+  keyword = "LISTOFAPPENDICES"
+)
+
+# Step 2: Create formatted text
+race_text <- fct_var_text(
+  arg_dataset = adsl,
+  arg_var_rest = RACE,
+  arg_lbl = "nbr-pct"
+)
+
+# Step 3: Replace text
+doc <- textReplace(doc, keyword = "TTraceTT", replacement = race_text)
+
+# Step 4: Save
+print(doc, target = "TLR_complete.docx")
+```
+
+## Best Practices
+
+1. Use arg_order = TRUE for most common first
+2. Limit with arg_nbr_obs to avoid long lists
+3. Use str_to_lower or str_to_sentence for readability
+4. Choose appropriate label format for context
+5. Filter data with arg_fl_rest when needed
+
+## Tips
+
+- Test output in console before using in document
+- Combine with sprintf() for more complex sentences
+- Use consistent case conversion across document
+- Consider your audience when choosing format
+
+You now have all the tools to create complete, automated TLRs!

@@ -6,6 +6,7 @@
 #' @param id ID where the cursor is place.
 #' @return Creates bookmarked output that can be referenced in the body text.
 #' @noRd
+#' @import xml2
 
 body_bookmark2 <- function(x, id) {
   # x=tb1; id=toupper(iduj)

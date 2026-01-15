@@ -1,0 +1,108 @@
+# Appendix Creation {#appendix-creation}
+
+## The run_apdx() Function
+
+The `run_apdx()` function automatically:
+
+1. Reads all PDF files from a specified folder
+2. Inserts them into your Word document
+3. Creates a table of contents with hyperlinks
+4. Organizes outputs into sections (optional)
+
+## Basic Usage
+
+```{r eval=FALSE}
+library(RapTLR)
+
+run_apdx(
+  path_TLFs = "C:/Documents/TLR_folder/TLF_outputs",
+  docx_object = "C:/Documents/TLR_folder/TLR_shell.docx",
+  keyword = "LISTOFAPPENDICES",
+  return_to_file = "C:/Documents/TLR_folder/TLR_final.docx"
+)
+```
+
+## Function Parameters
+
+### Required Parameters
+
+**path_TLFs** - Path to folder containing PDF files
+
+**docx_object** - Path to your shell Word document OR an existing officer object
+
+**keyword** - Placeholder text to replace with appendix list
+
+### Optional Parameters
+
+**return_to_file** - Path where final document should be saved
+
+**sections_structure** - Organizes TLFs into sections (list, data frame, or CSV)
+
+## Organizing with Sections
+
+### Method 1: Using a List
+
+```{r eval=FALSE}
+output_list <- list(
+  "Efficacy Tables" = c("t_efficacy_01", "t_efficacy_02"),
+  "Safety Tables" = c("t_adverse_events_01", "t_labs_01"),
+  "Listings" = c("l_deaths_01", "l_serious_ae_01")
+)
+
+run_apdx(
+  path_TLFs = "TLF_outputs/",
+  docx_object = "TLR_shell.docx",
+  keyword = "LISTOFAPPENDICES",
+  sections_structure = output_list,
+  return_to_file = "TLR_final.docx"
+)
+```
+
+### Method 2: Using a CSV File
+
+Create `TLF_structure.csv`:
+
+```
+Section,TLF_Name
+Efficacy Tables,t_efficacy_01
+Safety Tables,t_adverse_events_01
+```
+
+Then use it:
+
+```{r eval=FALSE}
+run_apdx(
+  path_TLFs = "TLF_outputs/",
+  docx_object = "TLR_shell.docx",
+  keyword = "LISTOFAPPENDICES",
+  sections_structure = "TLF_structure.csv",
+  return_to_file = "TLR_final.docx"
+)
+```
+
+## Working with Officer Objects
+
+```{r eval=FALSE}
+# Add appendices without writing to file
+doc <- run_apdx(
+  path_TLFs = "TLF_outputs/",
+  docx_object = "TLR_shell.docx",
+  keyword = "LISTOFAPPENDICES"
+)
+
+# Continue processing
+doc <- textReplace(doc, keyword = "TTsubjectTT", replacement = "500 patients")
+
+# Write when done
+print(doc, target = "TLR_final.docx")
+```
+
+## Best Practices
+
+1. Test with a subset first
+2. Keep backups
+3. Use version control
+4. Document your structure
+5. Validate output
+
+Your appendices are now automatically inserted!

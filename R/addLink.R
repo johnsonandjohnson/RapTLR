@@ -7,6 +7,7 @@
 #' @param outputs Outputs to be bookmarked.
 #' @return Creates bookmarked output that can be referenced in the body text.
 #' @noRd
+#' @import officer
 #'
 ## Create Linked outputs for TLR ----
 addLink <- function(path_TLFs = NULL,
@@ -32,7 +33,7 @@ addLink <- function(path_TLFs = NULL,
   # Gather all files in path
   vect_file <- file.path(path_TLFs, outputs)
 
-  message("Outputs to be bookmarked: ", paste(str_remove(outputs, ".docx"), collapse = ", "))
+  message("Outputs to be bookmarked: ", paste(stringr::str_remove(outputs, ".docx"), collapse = ", "))
 
   ## New code to ignore errors
   for (i in seq_along(vect_file)) {

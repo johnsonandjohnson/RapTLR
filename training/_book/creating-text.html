@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Creating Text with R | RapTLR Training Guide</title>
+  <meta name="description" content="Complete training material for the RapTLR package" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Creating Text with R | RapTLR Training Guide" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Complete training material for the RapTLR package" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Creating Text with R | RapTLR Training Guide" />
+  
+  <meta name="twitter:description" content="Complete training material for the RapTLR package" />
+  
+
+<meta name="author" content="RapTLR Development Team" />
+
+
+<meta name="date" content="2026-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="text-replacement.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RapTLR Training Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-raptlr"><i class="fa fa-check"></i><b>1.1</b> What is RapTLR?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-use-raptlr"><i class="fa fa-check"></i><b>1.2</b> Why Use RapTLR?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i><b>1.3</b> Installation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started-with-examples"><i class="fa fa-check"></i><b>1.4</b> Getting Started with Examples</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#typical-workflow"><i class="fa fa-check"></i><b>1.5</b> Typical Workflow</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#package-dependencies"><i class="fa fa-check"></i><b>1.6</b> Package Dependencies</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tlr-shell.html"><a href="tlr-shell.html"><i class="fa fa-check"></i><b>2</b> TLR Shell Preparation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tlr-shell.html"><a href="tlr-shell.html#what-is-a-tlr-shell"><i class="fa fa-check"></i><b>2.1</b> What is a TLR Shell?</a></li>
+<li class="chapter" data-level="2.2" data-path="tlr-shell.html"><a href="tlr-shell.html#creating-your-shell-document"><i class="fa fa-check"></i><b>2.2</b> Creating Your Shell Document</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tlr-shell.html"><a href="tlr-shell.html#step-1-write-your-narrative"><i class="fa fa-check"></i><b>2.2.1</b> Step 1: Write Your Narrative</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tlr-shell.html"><a href="tlr-shell.html#step-2-add-placeholder-keywords"><i class="fa fa-check"></i><b>2.2.2</b> Step 2: Add Placeholder Keywords</a></li>
+<li class="chapter" data-level="2.2.3" data-path="tlr-shell.html"><a href="tlr-shell.html#step-3-add-appendix-marker"><i class="fa fa-check"></i><b>2.2.3</b> Step 3: Add Appendix Marker</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="tlr-shell.html"><a href="tlr-shell.html#best-practices"><i class="fa fa-check"></i><b>2.3</b> Best Practices</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="tlr-shell.html"><a href="tlr-shell.html#naming-conventions"><i class="fa fa-check"></i><b>2.3.1</b> Naming Conventions</a></li>
+<li class="chapter" data-level="2.3.2" data-path="tlr-shell.html"><a href="tlr-shell.html#version-control"><i class="fa fa-check"></i><b>2.3.2</b> Version Control</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="tlr-shell.html"><a href="tlr-shell.html#common-mistakes-to-avoid"><i class="fa fa-check"></i><b>2.4</b> Common Mistakes to Avoid</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="output-conversion.html"><a href="output-conversion.html"><i class="fa fa-check"></i><b>3</b> Output Conversion with 3C Helper</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="output-conversion.html"><a href="output-conversion.html#understanding-tlf-formats"><i class="fa fa-check"></i><b>3.1</b> Understanding TLF Formats</a></li>
+<li class="chapter" data-level="3.2" data-path="output-conversion.html"><a href="output-conversion.html#what-is-3c-helper"><i class="fa fa-check"></i><b>3.2</b> What is 3C Helper?</a></li>
+<li class="chapter" data-level="3.3" data-path="output-conversion.html"><a href="output-conversion.html#file-naming-conventions"><i class="fa fa-check"></i><b>3.3</b> File Naming Conventions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="output-conversion.html"><a href="output-conversion.html#recommended-naming-pattern"><i class="fa fa-check"></i><b>3.3.1</b> Recommended Naming Pattern</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>3.4</b> Organizing Your TLF Folder</a></li>
+<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.5</b> Quality Checks Before Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="appendix-creation.html"><a href="appendix-creation.html#the-run_apdx-function"><i class="fa fa-check"></i><b>4.1</b> The run_apdx() Function</a></li>
+<li class="chapter" data-level="4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#basic-usage"><i class="fa fa-check"></i><b>4.2</b> Basic Usage</a></li>
+<li class="chapter" data-level="4.3" data-path="appendix-creation.html"><a href="appendix-creation.html#function-parameters"><i class="fa fa-check"></i><b>4.3</b> Function Parameters</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="appendix-creation.html"><a href="appendix-creation.html#required-parameters"><i class="fa fa-check"></i><b>4.3.1</b> Required Parameters</a></li>
+<li class="chapter" data-level="4.3.2" data-path="appendix-creation.html"><a href="appendix-creation.html#optional-parameters"><i class="fa fa-check"></i><b>4.3.2</b> Optional Parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="appendix-creation.html"><a href="appendix-creation.html#organizing-with-sections"><i class="fa fa-check"></i><b>4.4</b> Organizing with Sections</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="appendix-creation.html"><a href="appendix-creation.html#method-1-using-a-list"><i class="fa fa-check"></i><b>4.4.1</b> Method 1: Using a List</a></li>
+<li class="chapter" data-level="4.4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#method-2-using-a-csv-file"><i class="fa fa-check"></i><b>4.4.2</b> Method 2: Using a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="appendix-creation.html"><a href="appendix-creation.html#working-with-officer-objects"><i class="fa fa-check"></i><b>4.5</b> Working with Officer Objects</a></li>
+<li class="chapter" data-level="4.6" data-path="appendix-creation.html"><a href="appendix-creation.html#best-practices-1"><i class="fa fa-check"></i><b>4.6</b> Best Practices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="text-replacement.html"><a href="text-replacement.html"><i class="fa fa-check"></i><b>5</b> Dynamic Text Replacement</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="text-replacement.html"><a href="text-replacement.html#the-textreplace-function"><i class="fa fa-check"></i><b>5.1</b> The textReplace() Function</a></li>
+<li class="chapter" data-level="5.2" data-path="text-replacement.html"><a href="text-replacement.html#why-use-dynamic-text"><i class="fa fa-check"></i><b>5.2</b> Why Use Dynamic Text?</a></li>
+<li class="chapter" data-level="5.3" data-path="text-replacement.html"><a href="text-replacement.html#basic-usage-1"><i class="fa fa-check"></i><b>5.3</b> Basic Usage</a></li>
+<li class="chapter" data-level="5.4" data-path="text-replacement.html"><a href="text-replacement.html#function-parameters-1"><i class="fa fa-check"></i><b>5.4</b> Function Parameters</a></li>
+<li class="chapter" data-level="5.5" data-path="text-replacement.html"><a href="text-replacement.html#critical-officer-in-place-modification"><i class="fa fa-check"></i><b>5.5</b> CRITICAL: Officer In-Place Modification</a></li>
+<li class="chapter" data-level="5.6" data-path="text-replacement.html"><a href="text-replacement.html#chaining-multiple-replacements"><i class="fa fa-check"></i><b>5.6</b> Chaining Multiple Replacements</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="text-replacement.html"><a href="text-replacement.html#method-1-base-r-pipe"><i class="fa fa-check"></i><b>5.6.1</b> Method 1: Base R Pipe</a></li>
+<li class="chapter" data-level="5.6.2" data-path="text-replacement.html"><a href="text-replacement.html#method-2-dplyr-pipe"><i class="fa fa-check"></i><b>5.6.2</b> Method 2: dplyr Pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="text-replacement.html"><a href="text-replacement.html#practical-examples"><i class="fa fa-check"></i><b>5.7</b> Practical Examples</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="text-replacement.html"><a href="text-replacement.html#example-1-population-counts"><i class="fa fa-check"></i><b>5.7.1</b> Example 1: Population Counts</a></li>
+<li class="chapter" data-level="5.7.2" data-path="text-replacement.html"><a href="text-replacement.html#example-2-efficacy-results"><i class="fa fa-check"></i><b>5.7.2</b> Example 2: Efficacy Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="text-replacement.html"><a href="text-replacement.html#complete-workflow-example"><i class="fa fa-check"></i><b>5.8</b> Complete Workflow Example</a></li>
+<li class="chapter" data-level="5.9" data-path="text-replacement.html"><a href="text-replacement.html#combining-with-run_apdx"><i class="fa fa-check"></i><b>5.9</b> Combining with run_apdx()</a></li>
+<li class="chapter" data-level="5.10" data-path="text-replacement.html"><a href="text-replacement.html#best-practices-2"><i class="fa fa-check"></i><b>5.10</b> Best Practices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="creating-text.html"><a href="creating-text.html"><i class="fa fa-check"></i><b>6</b> Creating Text with R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="creating-text.html"><a href="creating-text.html#the-fct_var_text-function"><i class="fa fa-check"></i><b>6.1</b> The fct_var_text() Function</a></li>
+<li class="chapter" data-level="6.2" data-path="creating-text.html"><a href="creating-text.html#what-does-it-do"><i class="fa fa-check"></i><b>6.2</b> What Does It Do?</a></li>
+<li class="chapter" data-level="6.3" data-path="creating-text.html"><a href="creating-text.html#basic-usage-2"><i class="fa fa-check"></i><b>6.3</b> Basic Usage</a></li>
+<li class="chapter" data-level="6.4" data-path="creating-text.html"><a href="creating-text.html#function-parameters-2"><i class="fa fa-check"></i><b>6.4</b> Function Parameters</a></li>
+<li class="chapter" data-level="6.5" data-path="creating-text.html"><a href="creating-text.html#label-formats"><i class="fa fa-check"></i><b>6.5</b> Label Formats</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="creating-text.html"><a href="creating-text.html#show-counts-only"><i class="fa fa-check"></i><b>6.5.1</b> Show Counts Only</a></li>
+<li class="chapter" data-level="6.5.2" data-path="creating-text.html"><a href="creating-text.html#show-percentages-only"><i class="fa fa-check"></i><b>6.5.2</b> Show Percentages Only</a></li>
+<li class="chapter" data-level="6.5.3" data-path="creating-text.html"><a href="creating-text.html#show-both"><i class="fa fa-check"></i><b>6.5.3</b> Show Both</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="creating-text.html"><a href="creating-text.html#advanced-features"><i class="fa fa-check"></i><b>6.6</b> Advanced Features</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="creating-text.html"><a href="creating-text.html#add-descriptive-prefix"><i class="fa fa-check"></i><b>6.6.1</b> Add Descriptive Prefix</a></li>
+<li class="chapter" data-level="6.6.2" data-path="creating-text.html"><a href="creating-text.html#sort-by-frequency"><i class="fa fa-check"></i><b>6.6.2</b> Sort by Frequency</a></li>
+<li class="chapter" data-level="6.6.3" data-path="creating-text.html"><a href="creating-text.html#limit-to-top-n"><i class="fa fa-check"></i><b>6.6.3</b> Limit to Top N</a></li>
+<li class="chapter" data-level="6.6.4" data-path="creating-text.html"><a href="creating-text.html#convert-label-case"><i class="fa fa-check"></i><b>6.6.4</b> Convert Label Case</a></li>
+<li class="chapter" data-level="6.6.5" data-path="creating-text.html"><a href="creating-text.html#filter-data-first"><i class="fa fa-check"></i><b>6.6.5</b> Filter Data First</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="creating-text.html"><a href="creating-text.html#practical-examples-1"><i class="fa fa-check"></i><b>6.7</b> Practical Examples</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="creating-text.html"><a href="creating-text.html#example-1-demographics-description"><i class="fa fa-check"></i><b>6.7.1</b> Example 1: Demographics Description</a></li>
+<li class="chapter" data-level="6.7.2" data-path="creating-text.html"><a href="creating-text.html#example-2-discontinuation-reasons"><i class="fa fa-check"></i><b>6.7.2</b> Example 2: Discontinuation Reasons</a></li>
+<li class="chapter" data-level="6.7.3" data-path="creating-text.html"><a href="creating-text.html#example-3-adverse-event-summary"><i class="fa fa-check"></i><b>6.7.3</b> Example 3: Adverse Event Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="creating-text.html"><a href="creating-text.html#complete-workflow"><i class="fa fa-check"></i><b>6.8</b> Complete Workflow</a></li>
+<li class="chapter" data-level="6.9" data-path="creating-text.html"><a href="creating-text.html#integration-with-full-tlr-workflow"><i class="fa fa-check"></i><b>6.9</b> Integration with Full TLR Workflow</a></li>
+<li class="chapter" data-level="6.10" data-path="creating-text.html"><a href="creating-text.html#best-practices-3"><i class="fa fa-check"></i><b>6.10</b> Best Practices</a></li>
+<li class="chapter" data-level="6.11" data-path="creating-text.html"><a href="creating-text.html#tips"><i class="fa fa-check"></i><b>6.11</b> Tips</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/johnsonandjohnson/RapTLR" target="blank">RapTLR on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RapTLR Training Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating-text" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Creating Text with R<a href="creating-text.html#creating-text" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="the-fct_var_text-function" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The fct_var_text() Function<a href="creating-text.html#the-fct_var_text-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>RapTLR includes <code>fct_var_text()</code> to automatically create formatted text descriptions of categorical variable distributions.</p>
+</div>
+<div id="what-does-it-do" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> What Does It Do?<a href="creating-text.html#what-does-it-do" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Converts this:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="creating-text.html#cb22-1" tabindex="-1"></a><span class="fu">table</span>(adsl<span class="sc">$</span>RACE)</span>
+<span id="cb22-2"><a href="creating-text.html#cb22-2" tabindex="-1"></a><span class="co"># WHITE  BLACK  ASIAN  OTHER</span></span>
+<span id="cb22-3"><a href="creating-text.html#cb22-3" tabindex="-1"></a><span class="co">#   150     80     50     20</span></span></code></pre></div>
+<p>Into this:</p>
+<pre><code>&quot;White (n=150; 50%), Black (n=80; 26.7%), Asian (n=50; 16.7%) and Other (n=20; 6.7%)&quot;</code></pre>
+</div>
+<div id="basic-usage-2" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Basic Usage<a href="creating-text.html#basic-usage-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="creating-text.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb24-2"><a href="creating-text.html#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="creating-text.html#cb24-3" tabindex="-1"></a><span class="co"># Simple distribution</span></span>
+<span id="cb24-4"><a href="creating-text.html#cb24-4" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb24-5"><a href="creating-text.html#cb24-5" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb24-6"><a href="creating-text.html#cb24-6" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
+<span id="cb24-7"><a href="creating-text.html#cb24-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"</code></p>
+</div>
+<div id="function-parameters-2" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Function Parameters<a href="creating-text.html#function-parameters-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>arg_text_desc</strong> - Prefix text (default: ““)</p>
+<p><strong>arg_dataset</strong> - Data frame containing the variable</p>
+<p><strong>arg_fl_rest</strong> - Optional filtering condition</p>
+<p><strong>arg_var_rest</strong> - Unquoted variable name to analyze</p>
+<p><strong>arg_order</strong> - Sort by frequency? (default: FALSE)</p>
+<p><strong>arg_cvt_stg</strong> - Function to apply to labels (default: identity)</p>
+<p><strong>arg_nbr_obs</strong> - Number of levels to include (default: Inf)</p>
+<p><strong>arg_lbl</strong> - Format: “nbr”, “pct”, or “nbr-pct”</p>
+</div>
+<div id="label-formats" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Label Formats<a href="creating-text.html#label-formats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="show-counts-only" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Show Counts Only<a href="creating-text.html#show-counts-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="creating-text.html#cb25-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb25-2"><a href="creating-text.html#cb25-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb25-3"><a href="creating-text.html#cb25-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb25-4"><a href="creating-text.html#cb25-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr&quot;</span></span>
+<span id="cb25-5"><a href="creating-text.html#cb25-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"</code></p>
+</div>
+<div id="show-percentages-only" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Show Percentages Only<a href="creating-text.html#show-percentages-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="creating-text.html#cb26-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb26-2"><a href="creating-text.html#cb26-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb26-3"><a href="creating-text.html#cb26-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb26-4"><a href="creating-text.html#cb26-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb26-5"><a href="creating-text.html#cb26-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"WHITE (50%), BLACK (26.7%), ASIAN (16.7%) and OTHER (6.7%)"</code></p>
+</div>
+<div id="show-both" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Show Both<a href="creating-text.html#show-both" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="creating-text.html#cb27-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb27-2"><a href="creating-text.html#cb27-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb27-3"><a href="creating-text.html#cb27-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb27-4"><a href="creating-text.html#cb27-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb27-5"><a href="creating-text.html#cb27-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"WHITE (n=150; 50%), BLACK (n=80; 26.7%) and ASIAN (n=50; 16.7%)"</code></p>
+</div>
+</div>
+<div id="advanced-features" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Advanced Features<a href="creating-text.html#advanced-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="add-descriptive-prefix" class="section level3 hasAnchor" number="6.6.1">
+<h3><span class="header-section-number">6.6.1</span> Add Descriptive Prefix<a href="creating-text.html#add-descriptive-prefix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="creating-text.html#cb28-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb28-2"><a href="creating-text.html#cb28-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Patients were&quot;</span>,</span>
+<span id="cb28-3"><a href="creating-text.html#cb28-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb28-4"><a href="creating-text.html#cb28-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
+<span id="cb28-5"><a href="creating-text.html#cb28-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"Patients were WHITE (n=150), BLACK (n=80) and ASIAN (n=50)"</code></p>
+</div>
+<div id="sort-by-frequency" class="section level3 hasAnchor" number="6.6.2">
+<h3><span class="header-section-number">6.6.2</span> Sort by Frequency<a href="creating-text.html#sort-by-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="creating-text.html#cb29-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb29-2"><a href="creating-text.html#cb29-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb29-3"><a href="creating-text.html#cb29-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb29-4"><a href="creating-text.html#cb29-4" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-5"><a href="creating-text.html#cb29-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output shows most common first.</p>
+</div>
+<div id="limit-to-top-n" class="section level3 hasAnchor" number="6.6.3">
+<h3><span class="header-section-number">6.6.3</span> Limit to Top N<a href="creating-text.html#limit-to-top-n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="creating-text.html#cb30-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb30-2"><a href="creating-text.html#cb30-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb30-3"><a href="creating-text.html#cb30-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb30-4"><a href="creating-text.html#cb30-4" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-5"><a href="creating-text.html#cb30-5" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">3</span></span>
+<span id="cb30-6"><a href="creating-text.html#cb30-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>Shows only top 3 most frequent categories.</p>
+</div>
+<div id="convert-label-case" class="section level3 hasAnchor" number="6.6.4">
+<h3><span class="header-section-number">6.6.4</span> Convert Label Case<a href="creating-text.html#convert-label-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="creating-text.html#cb31-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb31-2"><a href="creating-text.html#cb31-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb31-3"><a href="creating-text.html#cb31-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb31-4"><a href="creating-text.html#cb31-4" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_sentence</span>
+<span id="cb31-5"><a href="creating-text.html#cb31-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Output: <code>"White (n=150), Black (n=80) and Asian (n=50)"</code></p>
+</div>
+<div id="filter-data-first" class="section level3 hasAnchor" number="6.6.5">
+<h3><span class="header-section-number">6.6.5</span> Filter Data First<a href="creating-text.html#filter-data-first" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="creating-text.html#cb32-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb32-2"><a href="creating-text.html#cb32-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb32-3"><a href="creating-text.html#cb32-3" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb32-4"><a href="creating-text.html#cb32-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
+<span id="cb32-5"><a href="creating-text.html#cb32-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Analyzes only safety population.</p>
+</div>
+</div>
+<div id="practical-examples-1" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Practical Examples<a href="creating-text.html#practical-examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-1-demographics-description" class="section level3 hasAnchor" number="6.7.1">
+<h3><span class="header-section-number">6.7.1</span> Example 1: Demographics Description<a href="creating-text.html#example-1-demographics-description" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-text.html#cb33-1" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb33-2"><a href="creating-text.html#cb33-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population was&quot;</span>,</span>
+<span id="cb33-3"><a href="creating-text.html#cb33-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
+<span id="cb33-4"><a href="creating-text.html#cb33-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb33-5"><a href="creating-text.html#cb33-5" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower,</span>
+<span id="cb33-6"><a href="creating-text.html#cb33-6" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb33-7"><a href="creating-text.html#cb33-7" tabindex="-1"></a>)</span>
+<span id="cb33-8"><a href="creating-text.html#cb33-8" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="creating-text.html#cb33-9" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb33-10"><a href="creating-text.html#cb33-10" tabindex="-1"></a>  <span class="at">doc_object =</span> doc,</span>
+<span id="cb33-11"><a href="creating-text.html#cb33-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>,</span>
+<span id="cb33-12"><a href="creating-text.html#cb33-12" tabindex="-1"></a>  <span class="at">replacement =</span> race_text</span>
+<span id="cb33-13"><a href="creating-text.html#cb33-13" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="example-2-discontinuation-reasons" class="section level3 hasAnchor" number="6.7.2">
+<h3><span class="header-section-number">6.7.2</span> Example 2: Discontinuation Reasons<a href="creating-text.html#example-2-discontinuation-reasons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="creating-text.html#cb34-1" tabindex="-1"></a>disc_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb34-2"><a href="creating-text.html#cb34-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for discontinuation were:&quot;</span>,</span>
+<span id="cb34-3"><a href="creating-text.html#cb34-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
+<span id="cb34-4"><a href="creating-text.html#cb34-4" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> DISCONFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb34-5"><a href="creating-text.html#cb34-5" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> DCREASCD,</span>
+<span id="cb34-6"><a href="creating-text.html#cb34-6" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-7"><a href="creating-text.html#cb34-7" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">3</span>,</span>
+<span id="cb34-8"><a href="creating-text.html#cb34-8" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower,</span>
+<span id="cb34-9"><a href="creating-text.html#cb34-9" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb34-10"><a href="creating-text.html#cb34-10" tabindex="-1"></a>)</span>
+<span id="cb34-11"><a href="creating-text.html#cb34-11" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="creating-text.html#cb34-12" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb34-13"><a href="creating-text.html#cb34-13" tabindex="-1"></a>  <span class="at">doc_object =</span> doc,</span>
+<span id="cb34-14"><a href="creating-text.html#cb34-14" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTdiscontinuationTT&quot;</span>,</span>
+<span id="cb34-15"><a href="creating-text.html#cb34-15" tabindex="-1"></a>  <span class="at">replacement =</span> disc_text</span>
+<span id="cb34-16"><a href="creating-text.html#cb34-16" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="example-3-adverse-event-summary" class="section level3 hasAnchor" number="6.7.3">
+<h3><span class="header-section-number">6.7.3</span> Example 3: Adverse Event Summary<a href="creating-text.html#example-3-adverse-event-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-text.html#cb35-1" tabindex="-1"></a>ae_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb35-2"><a href="creating-text.html#cb35-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most frequent adverse events were&quot;</span>,</span>
+<span id="cb35-3"><a href="creating-text.html#cb35-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adae,</span>
+<span id="cb35-4"><a href="creating-text.html#cb35-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> AEDECOD,</span>
+<span id="cb35-5"><a href="creating-text.html#cb35-5" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb35-6"><a href="creating-text.html#cb35-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">5</span>,</span>
+<span id="cb35-7"><a href="creating-text.html#cb35-7" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb35-8"><a href="creating-text.html#cb35-8" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+<div id="complete-workflow" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Complete Workflow<a href="creating-text.html#complete-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="creating-text.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb36-2"><a href="creating-text.html#cb36-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb36-3"><a href="creating-text.html#cb36-3" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb36-4"><a href="creating-text.html#cb36-4" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="creating-text.html#cb36-5" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">&quot;adam/adsl.sas7bdat&quot;</span>)</span>
+<span id="cb36-6"><a href="creating-text.html#cb36-6" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="creating-text.html#cb36-7" tabindex="-1"></a><span class="co"># Create multiple text descriptions</span></span>
+<span id="cb36-8"><a href="creating-text.html#cb36-8" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb36-9"><a href="creating-text.html#cb36-9" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Patients were&quot;</span>,</span>
+<span id="cb36-10"><a href="creating-text.html#cb36-10" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
+<span id="cb36-11"><a href="creating-text.html#cb36-11" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb36-12"><a href="creating-text.html#cb36-12" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> str_to_lower,</span>
+<span id="cb36-13"><a href="creating-text.html#cb36-13" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb36-14"><a href="creating-text.html#cb36-14" tabindex="-1"></a>)</span>
+<span id="cb36-15"><a href="creating-text.html#cb36-15" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="creating-text.html#cb36-16" tabindex="-1"></a>country_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb36-17"><a href="creating-text.html#cb36-17" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The top enrollment countries were&quot;</span>,</span>
+<span id="cb36-18"><a href="creating-text.html#cb36-18" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
+<span id="cb36-19"><a href="creating-text.html#cb36-19" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> COUNTRY,</span>
+<span id="cb36-20"><a href="creating-text.html#cb36-20" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-21"><a href="creating-text.html#cb36-21" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">5</span>,</span>
+<span id="cb36-22"><a href="creating-text.html#cb36-22" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr&quot;</span></span>
+<span id="cb36-23"><a href="creating-text.html#cb36-23" tabindex="-1"></a>)</span>
+<span id="cb36-24"><a href="creating-text.html#cb36-24" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="creating-text.html#cb36-25" tabindex="-1"></a><span class="co"># Replace in document</span></span>
+<span id="cb36-26"><a href="creating-text.html#cb36-26" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb36-27"><a href="creating-text.html#cb36-27" tabindex="-1"></a>  <span class="at">doc_object =</span> <span class="st">&quot;TLR_shell.docx&quot;</span>,</span>
+<span id="cb36-28"><a href="creating-text.html#cb36-28" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>,</span>
+<span id="cb36-29"><a href="creating-text.html#cb36-29" tabindex="-1"></a>  <span class="at">replacement =</span> race_text</span>
+<span id="cb36-30"><a href="creating-text.html#cb36-30" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb36-31"><a href="creating-text.html#cb36-31" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb36-32"><a href="creating-text.html#cb36-32" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTcountryTT&quot;</span>,</span>
+<span id="cb36-33"><a href="creating-text.html#cb36-33" tabindex="-1"></a>  <span class="at">replacement =</span> country_text,</span>
+<span id="cb36-34"><a href="creating-text.html#cb36-34" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
+<span id="cb36-35"><a href="creating-text.html#cb36-35" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="integration-with-full-tlr-workflow" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Integration with Full TLR Workflow<a href="creating-text.html#integration-with-full-tlr-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-text.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb37-2"><a href="creating-text.html#cb37-2" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="creating-text.html#cb37-3" tabindex="-1"></a><span class="co"># Step 1: Add appendices</span></span>
+<span id="cb37-4"><a href="creating-text.html#cb37-4" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">run_apdx</span>(</span>
+<span id="cb37-5"><a href="creating-text.html#cb37-5" tabindex="-1"></a>  <span class="at">path_TLFs =</span> <span class="st">&quot;TLF_outputs/&quot;</span>,</span>
+<span id="cb37-6"><a href="creating-text.html#cb37-6" tabindex="-1"></a>  <span class="at">docx_object =</span> <span class="st">&quot;TLR_shell.docx&quot;</span>,</span>
+<span id="cb37-7"><a href="creating-text.html#cb37-7" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;LISTOFAPPENDICES&quot;</span></span>
+<span id="cb37-8"><a href="creating-text.html#cb37-8" tabindex="-1"></a>)</span>
+<span id="cb37-9"><a href="creating-text.html#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="creating-text.html#cb37-10" tabindex="-1"></a><span class="co"># Step 2: Create formatted text</span></span>
+<span id="cb37-11"><a href="creating-text.html#cb37-11" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
+<span id="cb37-12"><a href="creating-text.html#cb37-12" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
+<span id="cb37-13"><a href="creating-text.html#cb37-13" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb37-14"><a href="creating-text.html#cb37-14" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb37-15"><a href="creating-text.html#cb37-15" tabindex="-1"></a>)</span>
+<span id="cb37-16"><a href="creating-text.html#cb37-16" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="creating-text.html#cb37-17" tabindex="-1"></a><span class="co"># Step 3: Replace text</span></span>
+<span id="cb37-18"><a href="creating-text.html#cb37-18" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(doc, <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>, <span class="at">replacement =</span> race_text)</span>
+<span id="cb37-19"><a href="creating-text.html#cb37-19" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="creating-text.html#cb37-20" tabindex="-1"></a><span class="co"># Step 4: Save</span></span>
+<span id="cb37-21"><a href="creating-text.html#cb37-21" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">&quot;TLR_complete.docx&quot;</span>)</span></code></pre></div>
+</div>
+<div id="best-practices-3" class="section level2 hasAnchor" number="6.10">
+<h2><span class="header-section-number">6.10</span> Best Practices<a href="creating-text.html#best-practices-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Use arg_order = TRUE for most common first</li>
+<li>Limit with arg_nbr_obs to avoid long lists</li>
+<li>Use str_to_lower or str_to_sentence for readability</li>
+<li>Choose appropriate label format for context</li>
+<li>Filter data with arg_fl_rest when needed</li>
+</ol>
+</div>
+<div id="tips" class="section level2 hasAnchor" number="6.11">
+<h2><span class="header-section-number">6.11</span> Tips<a href="creating-text.html#tips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Test output in console before using in document</li>
+<li>Combine with sprintf() for more complex sentences</li>
+<li>Use consistent case conversion across document</li>
+<li>Consider your audience when choosing format</li>
+</ul>
+<p>You now have all the tools to create complete, automated TLRs!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="text-replacement.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["RapTLR_Training.pdf", "RapTLR_Training.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

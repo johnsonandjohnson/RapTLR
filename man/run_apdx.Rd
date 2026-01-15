@@ -9,8 +9,7 @@ run_apdx(
   docx_object,
   keyword = "LISTOFAPPENDICES",
   sections_structure = NULL,
-  return_to_file = NULL,
-  return_object = FALSE
+  return_to_file = NULL
 )
 }
 \arguments{
@@ -20,13 +19,9 @@ run_apdx(
 
 \item{keyword}{IMPORTANT: please ensure your doc has this unique keyword placed where you want the Appendix section to start.}
 
-\item{return_to_file}{Optional - if not specified, saving result docx file to the same folder with default name "RapTLR_Appendix_processed.docx". This function can auto-detect if the user specified a docx name along with it. If not, auto-create a file name and save to file.}
+\item{return_to_file}{Optionnal: Path and name of the docx document with the appendice. If NULL then the new docx document will be saved at the working directory as appendix_processed.docx}
 
-\item{return_object}{Optional - if set to T, the function will return an officer object in global environment regardless of return_to_file}
-
-\item{output}{FOR LATER: To select only some desired TLFs and not all.}
-
-\item{sections_structure:}{If set to Null then all outputs from path_TLFs will be used and no section will be created. Otherwise format of list, csv or excel and subsections.}
+\item{sections_structure:}{Optionnal: If NULL then all outputs from path_TLFs will be used and no section will be created. Otherwise format of list, csv or excel and subsections.}
 }
 \value{
 NULL, output a docx to the destination folder.
@@ -35,24 +30,32 @@ NULL, output a docx to the destination folder.
 This function takes an empty (or headed) docx file, links your output TLF files, and adds them to the docx. Please note that this function will automatically create a new folder "new_linked" within your path_TLFs for processing intermediate TLF files.
 }
 \examples{
-path_TLFs = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLF_outputs"
-path_docx = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/"
-path_result = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLR_shell_processed.docx"
-# By default, no sections are specified. All tables are automatically grouped into a single section called "Outputs" in the appendice.
+path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
+path_docx <- system.file("extdata", "TLR_Shell.docx", package = "RapTLR")
+path_result <- "docx_with_appendice"
+# By default, no sections are specified. All tables are automatically grouped into a single section called "Outputs" in the appendice and saved in the current working directory as appendix_processed.docx.
 run_apdx(path_TLFs = path_TLFs,
-          docx_object = file.path(path_docx, "TLR_shell.docx"))
+         docx_object = path_docx)
 
-# An excel file can be read to define the structure of the appendice with the corresponding outputs.
+# The path and name of the new docx object can be modifed with return_to_file argument.
 run_apdx(path_TLFs = path_TLFs,
-         docx_object = file.path(path_docx, "TLR_shell.docx"),
-         keyword = "LISTOFAPPENDICES",
+         docx_object = path_docx,
          return_to_file = path_result)
 
-# A CSV file can also be used to define the structure of the appendices.
+# A CSV file can be used to define the structure of the appendices.
+TLF_list_csv <- system.file("extdata", "TLF_list.csv", package = "RapTLR")
+
 run_apdx(path_TLFs = path_TLFs,
-         docx_object = file.path(path_docx, "TLR_shell.docx"),
-         keyword = "LISTOFAPPENDICES",
-         sections_structure = "REPLACE WITH YOUR OWN PATH C:/Documents/TLR_folder/TLF_list.csv",
+         docx_object = path_docx,
+         sections_structure = TLF_list_csv,
+         return_to_file = path_result)
+
+# Or an excel file 
+TLF_list_xlsx <- system.file("extdata", "TLF_list.xlsx", package = "RapTLR")
+
+run_apdx(path_TLFs = path_TLFs,
+         docx_object = path_docx,
+         sections_structure = TLF_list_xlsx,
          return_to_file = path_result)
 
 # Or a list following the below format :
@@ -60,7 +63,7 @@ output_list <- list(Efficacy = "tefmad01a",
                     Overall = "tsidem03",
                     Safety = c("tsfae10", "lsfae03"))
 run_apdx(path_TLFs = path_TLFs,
-         docx_object = file.path(path_docx, "TLR_shell.docx"),
+         docx_object = path_docx,
          sections_structure = output_list)
 
 
