@@ -41,7 +41,7 @@ PLHD$TT_geninfo_TT <- fct_smpl_rest( arg_dataset = tlr_adsl, arg_text_desc = "Th
                       fct_var_text( arg_dataset = tlr_adsl, arg_var_rest = TRT01A, arg_lbl = "nbr-pct" ) %c%
                       fct_smpl_rest( arg_dataset = tlr_adsl, arg_fl_rest = !duplicated( SITEID ), arg_text_desc = "across ", arg_text_end = " sites" ) %c.%
                       fct_var_text( arg_dataset = tlr_adsl, arg_var_rest = SITEID, arg_lbl = "pct", arg_order = TRUE, arg_nbr_obs = 5, arg_text_desc = "The most represented sites were:" ) %c.%
-                      fct_var_text( arg_dataset = tlr_adsl, arg_var_rest = RACE, arg_order = TRUE, arg_cvt_stg = str_to_title, arg_lbl = "pct", arg_nbr_obs = 2, arg_text_desc = "Most were" ) %c.%
+                      fct_var_text( arg_dataset = tlr_adsl, arg_var_rest = RACE, arg_order = TRUE, arg_cvt_stg = stringr::str_to_title, arg_lbl = "pct", arg_nbr_obs = 2, arg_text_desc = "Most were" ) %c.%
                       c( "Table \\@ref(TSIDEM03)" )
 
 PLHD$TT_geninfo_TT
