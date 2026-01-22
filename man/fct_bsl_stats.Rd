@@ -49,7 +49,6 @@ variable by treatment group and generates a formatted text summary suitable for 
 study reports. It can include overall totals and specific treatment groups in the output.
 }
 \examples{
-data(tlr_adsl)
 
 # Calculate mean age with SD for all subjects
 fct_bsl_stats(
