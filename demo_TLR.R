@@ -11,19 +11,14 @@ path_docx <- system.file( "extdata/TLR_Shell.docx", package = "RapTLR" )
 path_result <- system.file( "docx_with_appendice", package = "RapTLR" )
 TLF_list_xlsx <- system.file( "extdata/TLF_list.xlsx", package = "RapTLR" )
 
-path_TLFs <- file.path(getwd(), "inst/extdata/TLF_outputs" )
-path_docx <- file.path( getwd(), "inst/extdata", "TLR_Shell.docx")
-path_result <- file.path(getwd( ), "docx_with_appendice")
-TLF_list_xlsx <- file.path( getwd(), "inst/extdata", "TLF_list.xlsx" )
-
 run_apdx( path_TLFs = path_TLFs,
           docx_object = path_docx,
           sections_structure = TLF_list_xlsx,
           return_to_file = "TLR_with_appendice.docx" )
 
 
-load( "data/tlr_adsl.Rda" )
-load( "data/tlr_adae.Rda" )
+data( tlr_adsl )
+data( tlr_adae )
 
 # Create list for placeholders
 PLHD <- list( )
@@ -104,7 +99,7 @@ PLHD$TT_aesser_TT <- c( "Table \\@ref(TSFAE10) presents an overview of Treatment
 textReplace( TLR, "TT_aesser_TT", PLHD$TT_aesser_TT ) 
 
 outTLR1 <- cursor_reach( TLR, "TT_tblTSFAE_TT" ) %>% 
-  body_add_docx( file.path( getwd( ), "inst/extdata/TLF_outputs", "tsfae10_c.docx" ), pos = "on" ) 
+  body_add_docx( file.path( path_TLFs, "tsfae10_c.docx" ), pos = "on" ) 
 
 ### Final PRINT ----
 print( TLR, 
