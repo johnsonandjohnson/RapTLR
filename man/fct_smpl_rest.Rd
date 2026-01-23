@@ -43,8 +43,6 @@ The dataset can be filtered using two optional filtering conditions, and the
 output can include custom text before and after the count.
 }
 \examples{
-# Load adsl data from this package
-data("tlr_adsl", package = "RapTLR")
 
 # Without filtering, return the number of rows
 fct_smpl_rest(arg_dataset = tlr_adsl)

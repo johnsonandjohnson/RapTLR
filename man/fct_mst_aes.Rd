@@ -51,8 +51,6 @@ subject-level data, calculates frequencies, filters by a specified threshold, an
 generates a formatted text summary suitable for clinical study reports.
 }
 \examples{
-data(tlr_adae)
-data(tlr_adsl)
 
 # Find most common AEs (>=15\%) in Xanomeline High Dose group
 fct_mst_aes(
