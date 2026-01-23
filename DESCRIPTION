@@ -28,4 +28,4 @@ Imports:
     crosstable (>= 0.8.2),
     magrittr (>= 2.0.4),
     readxl (>= 1.4.5),
-    utils(>= 4.5.1)
+    utils(>= 4.5.0)
