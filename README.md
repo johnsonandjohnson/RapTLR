@@ -24,6 +24,8 @@ devtools::install_github("Osant11/RapTLR")
 
 ### 1. Import the Demo Script
 
+Have a look at the complete demo and process from appendice creation to TLR generation. Run `r import_demo()` and a script called `r demo_TLR.R` will be created in your current working directory. 
+
 ```r
 library(RapTLR)
 
@@ -90,7 +92,7 @@ Automatically build appendices with linked tables, listings, and figures:
 
 ```r
 path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
-path_docx <- system.file("extdata/TLR_Shell.docx", package = "RapTLR")
+path_docx <- system.file("extdata/Keywords_replace.docx", package = "RapTLR")
 TLF_list <- system.file("extdata/TLF_list.xlsx", package = "RapTLR")
 
 run_apdx(
@@ -128,7 +130,7 @@ Build complex sentences naturally:
 |----------|-------------|
 | `textReplace()` | Replace keywords in Word documents with dynamic text |
 | `run_apdx()` | Create appendices with linked TLF files |
-| `import_demo()` | Copy demo script to working directory |
+| `import_demo()` | Copy overall demo script to working directory |
 
 ### Statistical Summary Functions
 
@@ -229,7 +231,7 @@ fct_bsl_stats(
 )
 
 # Step 3: Replace keywords with generated text
-textReplace(TLR, "TT_demographics_TT", demo_text)
+textReplace(TLR, "TT_geninfo_TT", demo_text)
 
 # Safety section
 safety_text <- fct_mst_aes(
@@ -241,7 +243,7 @@ safety_text <- fct_mst_aes(
   arg_frq = 10
 )
 
-textReplace(TLR, "TT_safety_TT", safety_text,
+textReplace(TLR, "TT_mosttaes_TT", safety_text,
             return_to_file = "final_TLR.docx")
 ```
 
@@ -267,7 +269,7 @@ MIT License
 ## Authors
 
 - Xiang Li
-- Antoine Stos (maintainer)
 - Lauren Crow
 - Caesar Li
 - Yannick Vandendijck
+- Antoine Stos
