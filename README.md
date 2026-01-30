@@ -24,7 +24,7 @@ devtools::install_github("Osant11/RapTLR")
 
 ### 1. Import the Demo Script
 
-Have a look at the complete demo and process from appendice creation to TLR generation. Run `r import_demo()` and a script called `r demo_TLR.R` will be created in your current working directory. 
+Have a look at the complete demo and process from appendice creation to TLR generation. Run `import_demo()` and a script called `demo_TLR.R` will be created in your current working directory. 
 
 ```r
 library(RapTLR)
