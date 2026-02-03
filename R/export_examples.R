@@ -8,7 +8,7 @@
 #' # By default, not returning to file, pass the officer object to the next function one by one
 #' export_examples(path_workingFolder = "C:/Documents/TLR_folder/")
 #'
-#' @export
+#' @noRd
 
 export_examples <- function(path_workingFolder) {
 
